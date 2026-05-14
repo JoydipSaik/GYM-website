@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>FLEXION | Dynamic Fitness Hub</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0c10;
+      color: #eef2ff;
+      scroll-behavior: smooth;
+      line-height: 1.5;
+    }
+
+    /* custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e1f25;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #f97316;
+      border-radius: 20px;
+    }
+
+    /* utility classes */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      background: linear-gradient(135deg, #fff 30%, #f97316 90%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #f97316;
+      border: none;
+      padding: 0.75rem 1.8rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      color: #0a0c10;
+      font-size: 0.95rem;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #f97316;
+      color: #f97316;
+    }
+
+    .btn-outline:hover {
+      background: #f97316;
+      color: #0a0c10;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: #ff8c42;
+      box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    /* header / navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 12, 16, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(249, 115, 22, 0.3);
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .logo span {
+      color: #f97316;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #eef2ff;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: #f97316;
+    }
+
+    /* hero */
+    .hero {
+      text-align: center;
+      padding: 6rem 0 4rem 0;
+      background: radial-gradient(circle at 20% 30%, rgba(249,115,22,0.15), transparent 70%);
+    }
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .hero h1 i {
+      color: #f97316;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 650px;
+      margin: 1rem auto;
+      color: #cbd5e6;
+    }
+
+    /* grid cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .card {
+      background: #14161c;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      transition: 0.25s;
+      border: 1px solid #2a2e3a;
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5);
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #f97316;
+    }
+    .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      color: #a0a9bf;
+      margin: 0.7rem 0;
+    }
+    .time-badge {
+      display: inline-block;
+      background: #2a2e3c;
+      padding: 0.3rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      margin: 0.8rem 0;
+    }
+
+    /* booked list */
+    .booked-section {
+      background: #0f1117;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      border: 1px solid #2a2e3a;
+    }
+    .booked-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1b1e26;
+      margin: 0.8rem 0;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+    }
+    .remove-book {
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .remove-book:hover {
+      transform: scale(1.1);
+      color: #ff6b6b;
+    }
+    .badge-count {
+      background: #f97316;
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-weight: bold;
+      margin-left: 0.8rem;
+    }
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    /* membership toggle */
+    .toggle-switch {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
+    .toggle-label {
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 28px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #2a2e3a;
+      transition: 0.3s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #f97316;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider:before {
+      transform: translateX(32px);
+    }
+    .price-card {
+      text-align: center;
+    }
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 1rem 0;
+    }
+    /* bmi result */
+    .bmi-result {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 1rem;
+      color: #f97316;
+    }
+    .inline-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    input, select {
+      background: #1e2028;
+      border: 1px solid #2f3340;
+      padding: 0.8rem 1rem;
+      border-radius: 60px;
+      color: white;
+      width: 100%;
+    }
+    .row-2col {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .row-2col > div {
+      flex: 1;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #050608;
+      color: #7c7f8c;
+    }
+    @media (max-width: 760px) {
+      .container {
+        padding: 0 1.2rem;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+    .glow {
+      transition: all 0.2s;
+    }
+    .wod-box {
+      background: #14161c;
+      padding: 1rem 1.5rem;
+      border-radius: 2rem;
+      text-align: center;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">FLEX<span>ION</span></div>
+  <div class="nav-links">
+    <a href="#classes">Classes</a>
+    <a href="#membership">Membership</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <h1><i class="fas fa-dumbbell"></i> Forge Your <span style="color:#f97316">Limitless</span> Self</h1>
+      <p>High-intensity training, elite coaching, and a community that pushes you beyond. Dynamic energy, real results.</p>
+      <a href="#classes" class="btn" style="margin-top: 1rem;">Start Free Trial <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <!-- Classes Section (Dynamic) -->
+  <section id="classes">
+    <div class="container">
+      <h2 class="section-title"><i class="fas fa-bicycle"></i> EXPLORE DYNAMIC CLASSES</h2>
+      <div id="classesContainer" class="cards-grid">
+        <!-- dynamically rendered classes appear here -->
+      </div>
+
+      <!-- Booked sessions area (dynamic) -->
+      <div class="booked-section">
+        <div class="flex-between">
+          <h3><i class="fas fa-calendar-check"></i> My Schedule <span id="bookedCounter" class="badge-count">0</span></h3>
+          <i class="fas fa-heart" style="color:#f97316"></i>
+        </div>
+        <div id="bookedList">
+          <p style="color:#7e849b; text-align:center;">No classes booked yet. Pick a session above 👆</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Membership Section (dynamic pricing toggle) -->
+  <section id="membership">
+    <div class="container">
+      <h2 class="section-title"><i class="fas fa-tag"></i> MEMBERSHIP PLANS</h2>
+      <div class="toggle-switch">
+        <span class="toggle-label">Monthly</span>
+        <label class="switch">
+          <input type="checkbox" id="priceToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Yearly <span style="font-size:0.8rem;">(Save 20%)</span></span>
+      </div>
+      <div class="cards-grid" id="plansContainer">
+        <!-- membership cards will be dynamic based on toggle -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Tools Section: BMI, WOD, Check-ins -->
+  <section id="tools">
+    <div class="container">
+      <h2 class="section-title"><i class="fas fa-chart-line"></i> DYNAMIC FITNESS TOOLS</h2>
+      <div class="cards-grid">
+        <!-- BMI Card -->
+        <div class="card">
+          <h3><i class="fas fa-calculator"></i> BMI Calculator</h3>
+          <div class="row-2col">
+            <div><input type="number" id="weight" placeholder="Weight (kg)" value="70"></div>
+            <div><input type="number" id="height" placeholder="Height (cm)" value="175"></div>
+          </div>
+          <button id="calcBMI" class="btn" style="margin-top:1rem; width:100%;">Calculate BMI</button>
+          <div id="bmiResult" class="bmi-result">— kg/m²</div>
+        </div>
+        <!-- WOD (Workout of the Day) dynamic random generator -->
+        <div class="card">
+          <h3><i class="fas fa-bolt"></i> WOD Generator</h3>
+          <div id="wodDisplay" class="wod-box" style="margin: 1rem 0;">🔥 Burpee & Squat ladder</div>
+          <button id="newWodBtn" class="btn-outline btn" style="width:100%;">⚡ NEW WORKOUT ⚡</button>
+        </div>
+        <!-- Live Gym Check-ins (dynamic) -->
+        <div class="card">
+          <h3><i class="fas fa-users"></i> LIVE CHECK-INS</h3>
+          <p style="font-size: 2.5rem; font-weight:800; margin:0.5rem 0;" id="checkinCount">1,284</p>
+          <p style="color:#9ca3af;">🔥 Active members inside now</p>
+          <button id="updateCheckinBtn" class="btn-outline btn" style="width:100%; margin-top:0.8rem;"><i class="fas fa-sync-alt"></i> Refresh crowd</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Carousel (Dynamic) -->
+  <section style="padding-bottom: 3rem;">
+    <div class="container">
+      <h2 class="section-title"><i class="fas fa-quote-right"></i> MEMBER SPOTLIGHT</h2>
+      <div style="background:#14161c; border-radius: 2rem; padding: 2rem; text-align:center; max-width:800px; margin:0 auto;">
+        <i class="fas fa-quote-left" style="font-size: 2rem; color:#f97316; opacity:0.6;"></i>
+        <p id="testimonialText" style="font-size: 1.2rem; margin: 1rem 0; font-style:italic;">"The trainers are next level! I've never been more motivated."</p>
+        <p id="testimonialAuthor" style="font-weight:700;">— Sarah J.</p>
+        <div style="display:flex; justify-content:center; gap:1rem; margin-top:1.5rem;">
+          <button id="prevTesti" class="btn-outline btn"><i class="fas fa-chevron-left"></i> Prev</button>
+          <button id="nextTesti" class="btn-outline btn">Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem;">
+        <div>
+          <h3 style="color:#f97316;">FLEXION GYM</h3>
+          <p>Level up your grind.<br>Open 24/7 • Premium equip</p>
+        </div>
+        <div>
+          <i class="fab fa-instagram"></i> <i class="fab fa-twitter"></i> <i class="fab fa-facebook"></i> &nbsp; @flexionfit
+        </div>
+      </div>
+      <p>© 2025 FLEXION — Dynamic strength, unstoppable you.</p>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // ----- DATA MODELS -----
+  // Fitness classes
+  const classesData = [
+    { id: 1, name: "🔥 Inferno HIIT", description: "High intensity interval training to burn fat fast.", time: "07:00 AM / 06:00 PM" },
+    { id: 2, name: "🧘 Power Yoga", description: "Build flexibility & core strength with dynamic flows.", time: "08:30 AM / 05:30 PM" },
+    { id: 3, name: "🏋️ Strength Club", description: "Olympic lifting & functional strength.", time: "12:00 PM / 07:30 PM" },
+    { id: 4, name: "🚴 Spin Revolution", description: "Rhythm-based indoor cycling, high endurance.", time: "09:15 AM / 06:45 PM" }
+  ];
+
+  // Booked classes array (store objects with id, name, time)
+  let bookedClasses = [];
+
+  // Membership plan data
+  const monthlyPlans = [
+    { name: "BASIC", price: 29, features: "Access to gym floor, 2 group classes/month" },
+    { name: "PRO", price: 59, features: "Unlimited classes + sauna & recovery zone" },
+    { name: "ELITE", price: 89, features: "All access + personal training session & guest pass" }
+  ];
+  const yearlyPlans = [
+    { name: "BASIC", price: 278, features: "Access to gym floor, 2 group classes/month" },
+    { name: "PRO", price: 566, features: "Unlimited classes + sauna & recovery zone" },
+    { name: "ELITE", price: 854, features: "All access + personal training session & guest pass" }
+  ];
+
+  // Testimonials array
+  const testimonials = [
+    { text: "Transformed my body in 3 months! The energy here is electric.", author: "— Marcus Lee" },
+    { text: "Best decision ever. Coaches care about your form and progress.", author: "— Elena R." },
+    { text: "I love the community and the dynamic classes, never boring!", author: "— Jake Chen" },
+    { text: "From zero to hero. FLEXION changed my lifestyle completely.", author: "— Anita K." }
+  ];
+  let currentTestimonialIdx = 0;
+
+  // WOD array
+  const workoutList = [
+    "🏆 50 Burpees + 400m Run (3 rounds)",
+    "💪 Deadlift 5x5 + Kettlebell Swings 50x",
+    "⚡ EMOM 20min: 10 Pushups + 15 Air Squats",
+    "🔥 100 Double Unders + 20 Wall Balls",
+    "🧗‍♀️ Pull-up ladder + 1km Row sprint"
+  ];
+
+  // Helper functions
+  function renderClasses() {
+    const container = document.getElementById('classesContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    classesData.forEach(cls => {
+      const isBooked = bookedClasses.some(b => b.id === cls.id);
+      const buttonDisabled = isBooked ? 'disabled' : '';
+      const buttonText = isBooked ? '✓ Already Booked' : '📅 Reserve Spot';
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${cls.name}</h3>
+        <p>${cls.description}</p>
+        <div class="time-badge"><i class="far fa-clock"></i> ${cls.time}</div>
+        <button class="btn book-class-btn" data-id="${cls.id}" ${buttonDisabled} style="width:100%; margin-top:0.5rem;">${buttonText}</button>
+      `;
+      container.appendChild(card);
+    });
+    // attach fresh event listeners to each book button
+    document.querySelectorAll('.book-class-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const classId = parseInt(btn.getAttribute('data-id'));
+        bookClassById(classId);
+      });
+    });
+  }
+
+  function bookClassById(classId) {
+    const already = bookedClasses.some(b => b.id === classId);
+    if (already) {
+      showToast("You already booked this class!", "error");
+      return;
+    }
+    const classToBook = classesData.find(c => c.id === classId);
+    if (classToBook) {
+      bookedClasses.push({ id: classToBook.id, name: classToBook.name, time: classToBook.time });
+      renderClasses();
+      renderBookedList();
+      updateBookedCounter();
+      showToast(`✅ ${classToBook.name} added to your schedule`, "success");
+    }
+  }
+
+  function renderBookedList() {
+    const bookedContainer = document.getElementById('bookedList');
+    if (!bookedContainer) return;
+    if (bookedClasses.length === 0) {
+      bookedContainer.innerHTML = '<p style="color:#7e849b; text-align:center;">No classes booked yet. Pick a session above 👆</p>';
+      return;
+    }
+    bookedContainer.innerHTML = '';
+    bookedClasses.forEach(book => {
+      const div = document.createElement('div');
+      div.className = 'booked-item';
+      div.innerHTML = `
+        <div><strong>${book.name}</strong> <span style="font-size:0.8rem;">${book.time}</span></div>
+        <button class="remove-book" data-id="${book.id}"><i class="fas fa-trash-alt"></i> Cancel</button>
+      `;
+      bookedContainer.appendChild(div);
+    });
+    // attach remove events
+    document.querySelectorAll('.remove-book').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idToRemove = parseInt(btn.getAttribute('data-id'));
+        removeBookedClass(idToRemove);
+      });
+    });
+  }
+
+  function removeBookedClass(id) {
+    bookedClasses = bookedClasses.filter(b => b.id !== id);
+    renderClasses();
+    renderBookedList();
+    updateBookedCounter();
+    showToast("🗑️ Session removed. You can book again.", "info");
+  }
+
+  function updateBookedCounter() {
+    const counterSpan = document.getElementById('bookedCounter');
+    if (counterSpan) counterSpan.innerText = bookedClasses.length;
+  }
+
+  function renderMembershipPlans(isYearly) {
+    const container = document.getElementById('plansContainer');
+    if (!container) return;
+    const plans = isYearly ? yearlyPlans : monthlyPlans;
+    const suffix = isYearly ? '/year' : '/month';
+    container.innerHTML = '';
+    plans.forEach(plan => {
+      const card = document.createElement('div');
+      card.className = 'card price-card';
+      card.innerHTML = `
+        <h3>${plan.name}</h3>
+        <div class="price">$${plan.price}<span style="font-size:1rem;"> ${suffix}</span></div>
+        <p>${plan.features}</p>
+        <button class="btn-outline btn" style="margin-top:1rem;">Join Now</button>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // BMI calculator
+  function computeBMI() {
+    const weight = parseFloat(document.getElementById('weight').value);
+    const heightCm = parseFloat(document.getElementById('height').value);
+    if (isNaN(weight) || isNaN(heightCm) || heightCm <= 0 || weight <= 0) {
+      document.getElementById('bmiResult').innerHTML = "⚠️ Enter valid numbers";
+      return;
+    }
+    const heightM = heightCm / 100;
+    const bmi = weight / (heightM * heightM);
+    let category = "";
+    if (bmi < 18.5) category = "Underweight";
+    else if (bmi < 24.9) category = "Healthy 💪";
+    else if (bmi < 29.9) category = "Overweight";
+    else category = "High range, let's train!";
+    document.getElementById('bmiResult').innerHTML = `${bmi.toFixed(1)} kg/m² — ${category}`;
+  }
+
+  // WOD random generator
+  function updateWOD() {
+    const randomIndex = Math.floor(Math.random() * workoutList.length);
+    const wodDiv = document.getElementById('wodDisplay');
+    if (wodDiv) wodDiv.innerHTML = `🔥 ${workoutList[randomIndex]} 🔥`;
+  }
+
+  // Check-ins dynamic (randomized crowd)
+  let currentCheckins = 1284;
+  function randomizeCheckins() {
+    const newCount = Math.floor(Math.random() * (2150 - 620 + 1) + 620);
+    currentCheckins = newCount;
+    document.getElementById('checkinCount').innerHTML = currentCheckins.toLocaleString();
+    showToast(`👥 Live check-ins updated: ${currentCheckins} members`, "info");
+  }
+
+  // toast notification for dynamic feedback
+  function showToast(msg, type = "success") {
+    let toastDiv = document.getElementById('dynamicToast');
+    if (!toastDiv) {
+      toastDiv = document.createElement('div');
+      toastDiv.id = 'dynamicToast';
+      toastDiv.style.position = 'fixed';
+      toastDiv.style.bottom = '20px';
+      toastDiv.style.right = '20px';
+      toastDiv.style.backgroundColor = '#1f2128';
+      toastDiv.style.color = 'white';
+      toastDiv.style.padding = '12px 24px';
+      toastDiv.style.borderRadius = '40px';
+      toastDiv.style.borderLeft = `4px solid ${type === 'error' ? '#ef4444' : '#f97316'}`;
+      toastDiv.style.zIndex = '999';
+      toastDiv.style.fontWeight = '500';
+      toastDiv.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+      document.body.appendChild(toastDiv);
+    }
+    toastDiv.innerHTML = msg;
+    toastDiv.style.opacity = '1';
+    setTimeout(() => {
+      toastDiv.style.opacity = '0';
+      setTimeout(() => { if(toastDiv) toastDiv.style.opacity = ''; }, 500);
+    }, 2200);
+  }
+
+  // Testimonial carousel
+  function updateTestimonial(index) {
+    const testimonial = testimonials[index % testimonials.length];
+    document.getElementById('testimonialText').innerText = `"${testimonial.text}"`;
+    document.getElementById('testimonialAuthor').innerText = testimonial.author;
+  }
+  function nextTestimonial() {
+    currentTestimonialIdx = (currentTestimonialIdx + 1) % testimonials.length;
+    updateTestimonial(currentTestimonialIdx);
+  }
+  function prevTestimonial() {
+    currentTestimonialIdx = (currentTestimonialIdx - 1 + testimonials.length) % testimonials.length;
+    updateTestimonial(currentTestimonialIdx);
+  }
+
+  // ----- INITIALIZATION & EVENT LISTENERS -----
+  document.addEventListener('DOMContentLoaded', () => {
+    // initial renders
+    renderClasses();
+    renderBookedList();
+    updateBookedCounter();
+    const isYearlyDefault = false;
+    renderMembershipPlans(isYearlyDefault);
+    // price toggle listener
+    const toggleCheckbox = document.getElementById('priceToggle');
+    if (toggleCheckbox) {
+      toggleCheckbox.addEventListener('change', (e) => {
+        renderMembershipPlans(e.target.checked);
+      });
+    }
+    // BMI event
+    document.getElementById('calcBMI').addEventListener('click', computeBMI);
+    computeBMI(); // default calc
+    // WOD generator
+    document.getElementById('newWodBtn').addEventListener('click', updateWOD);
+    updateWOD();
+    // check-ins refresh
+    document.getElementById('updateCheckinBtn').addEventListener('click', randomizeCheckins);
+    // testimonial buttons
+    document.getElementById('nextTesti').addEventListener('click', nextTestimonial);
+    document.getElementById('prevTesti').addEventListener('click', prevTestimonial);
+    updateTestimonial(0);
+
+    // Small initial greet toast
+    setTimeout(() => {
+      showToast("🔥 Book a class & explore dynamic tools!", "success");
+    }, 800);
+  });
+</script>
+</body>
+</html>
